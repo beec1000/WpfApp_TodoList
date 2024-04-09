@@ -1,0 +1,20 @@
+﻿<Window x:Class="WpfApp_TodoList.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp_TodoList"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <ListBox x:Name="List" HorizontalAlignment="Left" Height="250" Margin="540,78,0,0" VerticalAlignment="Top" Width="241"/>
+        <Label Content="To-Do List" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Margin="602,47,0,0" VerticalAlignment="Top" Width="118"/>
+        
+        <TextBox x:Name="Data" HorizontalAlignment="Left" Margin="108,186,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="135" Height="35"/>
+        <Label Content="Data:" HorizontalAlignment="Left" Margin="108,160,0,0" VerticalAlignment="Top"/>
+        <Button Content="Upload to list" HorizontalAlignment="Left" Margin="138,226,0,0" VerticalAlignment="Top" Background="Green" Foreground="White" BorderBrush="Snow" Click="Upload_Button"/>
+        <Button x:Name="DeleteButton" Content="Delete" HorizontalAlignment="Left" Margin="641,333,0,0" VerticalAlignment="Top" Background="Red" Foreground="White" BorderBrush="snow" IsEnabled="False" Click="Delete_Button"/>
+
+        
+    </Grid>
+</Window>
