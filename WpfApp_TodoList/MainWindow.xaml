@@ -5,16 +5,40 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp_TodoList"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="ToDo List" Height="450" Width="800">
     <Grid>
-        <ListBox x:Name="List" HorizontalAlignment="Left" Height="250" Margin="540,78,0,0" VerticalAlignment="Top" Width="241"/>
-        <Label Content="To-Do List" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Margin="602,47,0,0" VerticalAlignment="Top" Width="118"/>
-        
-        <TextBox x:Name="Data" HorizontalAlignment="Left" Margin="108,186,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="135" Height="35"/>
-        <Label Content="Data:" HorizontalAlignment="Left" Margin="108,160,0,0" VerticalAlignment="Top"/>
-        <Button Content="Upload to list" HorizontalAlignment="Left" Margin="138,226,0,0" VerticalAlignment="Top" Background="Green" Foreground="White" BorderBrush="Snow" Click="Upload_Button"/>
-        <Button x:Name="DeleteButton" Content="Delete" HorizontalAlignment="Left" Margin="641,333,0,0" VerticalAlignment="Top" Background="Red" Foreground="White" BorderBrush="snow" IsEnabled="False" Click="Delete_Button"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
 
-        
+        <Label Content="To-Do List" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+               HorizontalAlignment="Center" FontSize="24" Margin="10"/>
+
+        <ListBox x:Name="List" Grid.Row="1" Grid.Column="0"
+                 HorizontalAlignment="Stretch" VerticalAlignment="Top"
+                 Margin="10" Height="250" Width="Auto" SelectionChanged="ListSelectionChanged"/>
+
+        <TextBox x:Name="Data" Grid.Row="2" Grid.Column="0"
+                 HorizontalAlignment="Stretch" VerticalAlignment="Top"
+                 Margin="10" Height="30" Width="Auto"/>
+
+        <Button x:Name="AddButton" Content="Add Task" Grid.Row="2" Grid.Column="1"
+                HorizontalAlignment="Left" VerticalAlignment="Top"
+                Margin="10" Width="90" Click="AddButton_Click" 
+                Background="Green" Foreground="White"/>
+        <Button x:Name="ModifyButton" Content="Modify Task" Grid.Row="2" Grid.Column="1"
+                HorizontalAlignment="Left" VerticalAlignment="Top"
+                Margin="110,10,0,10" Width="90" IsEnabled="False" Click="ModifyButton_Click" 
+                Background="Blue" Foreground="White"/>
+        <Button x:Name="DeleteButton" Content="Delete Task" Grid.Row="2" Grid.Column="1"
+                HorizontalAlignment="Left" VerticalAlignment="Top"
+                Margin="210,10,0,10" Width="90" IsEnabled="False" Click="DeleteButton_Click"
+                Background="Red" Foreground="White"/>
     </Grid>
 </Window>
