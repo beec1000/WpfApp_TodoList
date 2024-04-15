@@ -9,6 +9,9 @@ namespace WpfApp_TodoList
         {
             InitializeComponent();
 
+            List.Items.Add("test1");
+            List.Items.Add("test2");
+
             UpdateButtons();
         }
 
@@ -75,6 +78,41 @@ namespace WpfApp_TodoList
         private void ListSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             UpdateButtons();
+        }
+
+        private void UpButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (List.SelectedItem != null)
+            {
+                int selected = List.SelectedIndex;
+                if (selected > 0)
+                {
+                    object selectedItem = List.SelectedItem;
+                    List.Items.RemoveAt(selected);
+                    List.Items.Insert(selected - 1, selectedItem);
+                    List.SelectedIndex = selected - 1;
+                }
+            }
+        }
+
+        private void DownButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (List.SelectedItem != null)
+            {
+                int selected = List.SelectedIndex;
+                if (selected < List.Items.Count - 1 && selected != -1)
+                {
+                    object selectedItem = List.SelectedItem;
+                    List.Items.RemoveAt(selected);
+                    List.Items.Insert(selected + 1, selectedItem);
+                    List.SelectedIndex = selected + 1;
+                }
+            }
+        }
+
+        private void DeleteAllButton_Click(object sender, RoutedEventArgs e)
+        {
+            List.Items.Clear();
         }
     }
 }
