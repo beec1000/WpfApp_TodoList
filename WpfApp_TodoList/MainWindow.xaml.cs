@@ -1,16 +1,22 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
+using System.Windows.Media;
 
 namespace WpfApp_TodoList
 {
     public partial class MainWindow : Window
     {
+        int selected;
+
         public MainWindow()
         {
             InitializeComponent();
 
             List.Items.Add("test1");
             List.Items.Add("test2");
+
+            this.KeyDown += MainWindow_KeyDown;
 
             UpdateButtons();
         }
@@ -19,6 +25,20 @@ namespace WpfApp_TodoList
         {
             DeleteButton.IsEnabled = List.SelectedItems.Count > 0;
             ModifyButton.IsEnabled = List.SelectedItems.Count > 0;
+        }
+
+        private void MainWindow_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.F4 && Keyboard.Modifiers == ModifierKeys.Alt)
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void OnChange(object sender, TextChangedEventArgs e)
+        {
+            if (Data.Text != "") DataPlaceholder.Visibility = Visibility.Hidden;
+            else DataPlaceholder.Visibility = Visibility.Visible;
         }
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
@@ -58,20 +78,24 @@ namespace WpfApp_TodoList
         {
             if (List.SelectedIndex != -1)
             {
-                string updatedData = Data.Text;
+                selected = List.SelectedIndex;
 
-                if (string.IsNullOrEmpty(updatedData))
-                {
-                    MessageBox.Show("Please enter data to modify", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                    return;
-                }
+                Data.Focus();
+                Data.Text = List.SelectedItem as string;
 
-                List.Items[List.SelectedIndex] = updatedData;
-                Data.Clear();
+                OKButton.Visibility = Visibility.Visible;
             }
-            else
+        }
+
+        private void OkButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (selected != -1 && !string.IsNullOrEmpty(Data.Text))
             {
-                MessageBox.Show("Please select data to modify", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                List.Items[selected] = Data.Text;
+
+                selected = -1;
+
+                OKButton.Visibility = Visibility.Collapsed;
             }
         }
 
@@ -110,9 +134,20 @@ namespace WpfApp_TodoList
             }
         }
 
-        private void DeleteAllButton_Click(object sender, RoutedEventArgs e)
+        private void DeleteTestsButton_Click(object sender, RoutedEventArgs e)
         {
             List.Items.Clear();
+            DeleteTestsButton.IsEnabled = false;
+        }
+
+        private void ExitButton_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult result = MessageBox.Show("Are you sure you want to exit?", "Confirm Exit", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                Application.Current.Shutdown();
+            }
         }
     }
 }
