@@ -49,16 +49,16 @@
         <Button x:Name="ModifyButton" Content="Modify Task" Grid.Row="2" Grid.Column="1"
                 HorizontalAlignment="Left" VerticalAlignment="Top"
                 Margin="5,50,0,0" Width="90" IsEnabled="False" Click="ModifyButton_Click" 
-                Background="Blue" Foreground="White" Height="20"/>
+                Background="Cyan" Height="20"/>
         
         <Button x:Name="DeleteButton" Content="Delete Task" Grid.Row="2" Grid.Column="1"
                 HorizontalAlignment="Left" VerticalAlignment="Top"
                 Margin="205,10,0,0" Width="90" IsEnabled="False" Click="DeleteButton_Click"
-                Background="Red" Foreground="White" Height="20"/>
+                Background="Red" Height="20"/>
         <Button x:Name="DeleteTestsButton" Content="Delete Tests" Grid.Row="2" Grid.Column="1"
                 HorizontalAlignment="Left" VerticalAlignment="Top"
                 Margin="205,50,0,0" Width="90" Click="DeleteTestsButton_Click" Height="20"
-                Background="Red" Foreground="White"/>
+                Background="Red"/>
         
         <Button x:Name="UpButton" Content="Move Up" Grid.Row="2" Grid.Column="1"
                 HorizontalAlignment="Left" VerticalAlignment="Top"
