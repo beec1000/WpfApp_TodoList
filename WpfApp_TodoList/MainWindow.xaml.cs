@@ -7,6 +7,21 @@ namespace WpfApp_TodoList
 {
     public partial class MainWindow : Window
     {
+        /*
+         2 órát hiányoztam
+
+        Dokumentáció:
+        -Alap adatok meg vannak adva
+        -Alt+F4 ki van kapcsolva
+        -Hozzáadás, Változtatás, Törlés, Sorrendbe rakás, Fel és Le mozgatás gombok működnek
+        -Copy-zás műsik listába működik
+
+        Hibák:
+        -A test adatokat törlő gomb nem jó teljesen (egyszer töröl minden Item-et a listában)
+        -A Title Bar-ban minden eltünik
+        -Ha az egyik item-et át változtatja egy olyanara, ami már benne van a listába, azt nem kezeli
+         */
+
         int selected;
 
         public MainWindow()
@@ -29,7 +44,7 @@ namespace WpfApp_TodoList
 
         private void MainWindow_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.F4 && Keyboard.Modifiers == ModifierKeys.Alt)
+            if (e.Key == Key.System && e.SystemKey == Key.F4)
             {
                 e.Handled = true;
             }
@@ -95,6 +110,8 @@ namespace WpfApp_TodoList
 
                 selected = -1;
 
+                Data.Text = string.Empty;
+
                 OKButton.Visibility = Visibility.Collapsed;
             }
         }
@@ -116,6 +133,10 @@ namespace WpfApp_TodoList
                     List.Items.Insert(selected - 1, selectedItem);
                     List.SelectedIndex = selected - 1;
                 }
+                else
+                {
+                    MessageBox.Show("This item is already at the top of the list.", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
             }
         }
 
@@ -130,6 +151,10 @@ namespace WpfApp_TodoList
                     List.Items.RemoveAt(selected);
                     List.Items.Insert(selected + 1, selectedItem);
                     List.SelectedIndex = selected + 1;
+                }
+                else
+                {
+                    MessageBox.Show("This item is already at the bottom of the list.", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
             }
         }
@@ -148,6 +173,47 @@ namespace WpfApp_TodoList
             {
                 Application.Current.Shutdown();
             }
+        }
+
+        private void AscendingButton_Click(object sender, RoutedEventArgs e)
+        {
+            var ascItems = new List<string>();
+            foreach (var i in List.Items)
+            {
+                ascItems.Add(i.ToString());
+            }
+
+            ascItems.Sort();
+
+            List.Items.Clear();
+            foreach (var i in ascItems)
+            {
+                List.Items.Add(i);
+            }
+        }
+
+        private void DescendingButton_Click(object sender, RoutedEventArgs e)
+        {
+            var descItems = new List<string>();
+            foreach (var i in List.Items)
+            {
+                descItems.Add(i.ToString());
+            }
+
+            descItems.Sort();
+            descItems.Reverse();
+
+            List.Items.Clear();
+            foreach (var i in descItems)
+            {
+                List.Items.Add(i);
+            }
+        }
+
+        private void CopyButton_Click(object sender, RoutedEventArgs e)
+        {
+            var tempHolder = List.SelectedItem;
+            List2.Items.Add(tempHolder);
         }
     }
 }
